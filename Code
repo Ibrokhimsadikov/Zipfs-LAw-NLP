@@ -10,3 +10,10 @@ alice = nltk.corpus.gutenberg.raw('carroll-alice.txt')
 words = alice.split()
 words = [word.lower() for word in words]
 print(words[:100])
+
+# filter out stop words
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+stop_words = set(stopwords.words('english'))
+words = [w for w in words if not w in stop_words]
+print(words[:100])
