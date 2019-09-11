@@ -1,0 +1,12 @@
+import nltk
+nltk.download('gutenberg')
+import pandas 
+import numpy
+
+from nltk.text import Text
+alice = nltk.corpus.gutenberg.raw('carroll-alice.txt')
+
+# split into words by white space
+words = alice.split()
+words = [word.lower() for word in words]
+print(words[:100])
