@@ -17,3 +17,74 @@ from nltk.corpus import stopwords
 stop_words = set(stopwords.words('english'))
 words = [w for w in words if not w in stop_words]
 print(words[:100])
+
+
+import string
+table = str.maketrans('', '', string.punctuation)
+stripped = [w.translate(table) for w in words]
+​
+​
+len(stripped)
+len(stripped)
+​
+​
+14321
+​
+len(set(stripped))
+2728
+# Calculate frequency distribution
+fdist = nltk.FreqDist(stripped)
+print(fdist)
+<FreqDist with 2728 samples and 14321 outcomes>
+​
+for word, frequency in fdist.most_common(50):
+    print(u'{};{}'.format(word, frequency))
+
+plot=fdist.plot(50, cumulative=True)
+
+data = pandas.DataFrame(list(fdist.items()), columns = ["Word","Frequency"])
+data
+
+
+data= data.rename_axis('Rank')
+data
+​
+
+
+data = data.sort_values(by='Frequency',ascending=False)
+print(data)
+    
+    
+    
+ 
+data.index.name = 'newhead'
+data.reset_index(inplace=True)
+​
+data = data.drop(['newhead'], axis=1)
+data
+
+
+
+part1=data.head(25)
+part1
+
+part2 = data[data.Word.str.startswith('c')]
+part2= part2.head(25)
+part2
+
+# Combine 50 words.
+Mix= pandas.concat([part1,part2],ignore_index= False)
+print(Mix)
+
+Mix['Prob'] = Mix['Frequency'] / len(stripped)
+
+Mix['Rank'] = Mix.index
+Mix['Product'] = Mix['Rank'] * Mix['Prob']
+print(Mix)
+     
+len(set(Mix))
+5
+len(Mix)
+50
+#
+#AS we have seen through above calculations the Ziphs law is satisfied
